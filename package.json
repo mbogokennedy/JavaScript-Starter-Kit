@@ -1,0 +1,103 @@
+{
+  "name": "javascript-starter-kit",
+  "version": "1.0.0",
+  "description": "JavaScript development environment starter kit",
+  "main": "server.js",
+  "scripts": {
+    "start": "npm-run-all --parallel server test:watch",
+    "open:browser": "babel-node -- src/buildScripts/startAction.js",
+    "server": "nodemon --exec babel-node -- server.js",
+    "serve": "nodemon ./dist/server.js",
+    "security-check": "npm audit",
+    "buildDev": "del dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
+    "buildProd": "del dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
+    "share": "lt --port 3000",
+    "lint": "eslint -- --init",
+    "test": "mocha --reporter progress src/buildScripts/testSetup.js \"src/**/*.test.js\"",
+    "test:watch": "npm run test -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbogokennedy/JavaScript-Starter-Kit.git"
+  },
+  "keywords": [
+    "Starter-Kit",
+    "JavaScript",
+    "Development-Environment"
+  ],
+  "author": "Kennedy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mbogokennedy/JavaScript-Starter-Kit/issues"
+  },
+  "homepage": "https://github.com/mbogokennedy/JavaScript-Starter-Kit#readme",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/polyfill": "^7.7.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/register": "^7.6.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "chai": "^4.2.0",
+    "chalk": "^2.4.2",
+    "cheerio": "^1.0.0-rc.3",
+    "compression": "^1.7.4",
+    "cross-env": "^5.2.1",
+    "css-loader": "^3.4.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "eslint-watch": "^6.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^5.0.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "jsdom": "^15.1.1",
+    "json-schema-faker": "^0.5.0-rc19",
+    "json-server": "^0.15.1",
+    "localtunnel": "^1.9.2",
+    "lodash": "^4.17.15",
+    "mini-css-extract-plugin": "^0.9.0",
+    "mocha": "^6.2.0",
+    "nock": "^11.3.4",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5",
+    "numeral": "^2.0.6",
+    "open": "6.4.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "rimraf": "^3.0.0",
+    "style-loader": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "url-loader": "^3.0.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-middleware": "^3.7.1",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-md5-hash": "0.0.6",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "delay": "2500",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": 4000
+    }
+  }
+}
