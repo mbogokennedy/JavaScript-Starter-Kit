@@ -1,20 +1,15 @@
-const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.config');
 
-module.exports = {
+module.exports = merge(common, {
   entry: {
     main: './src/index.js'
   },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/',
-    filename: '[name].js'
-  },
-  target: 'web',
   devtool: 'source-map',
+  mode: 'production',
+  target: 'web',
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
@@ -25,42 +20,4 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({})
     ]
   },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-            options: { minimize: true }
-          }
-        ]
-      },
-      {
-        test: /\.jpg$/,
-        use: [{ loader: 'url-loader' }]
-      },
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      },
-    ]
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/views/index.html',
-      filename: './src/views/index.html'
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
-    })
-  ]
-};
+});

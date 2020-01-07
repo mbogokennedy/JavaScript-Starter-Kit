@@ -4,7 +4,7 @@
   "description": "JavaScript development environment starter kit",
   "main": "server.js",
   "scripts": {
-    "start": "npm-run-all --parallel server test:watch",
+    "start": "npm-run-all --parallel server test:watch start-mockapi",
     "open:browser": "babel-node -- src/buildScripts/startAction.js",
     "server": "nodemon --exec babel-node -- server.js",
     "serve": "nodemon ./dist/server.js",
@@ -14,7 +14,10 @@
     "share": "lt --port 3000",
     "lint": "eslint -- --init",
     "test": "mocha --reporter progress src/buildScripts/testSetup.js \"src/**/*.test.js\"",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "generate:schema": "babel-node -- src/buildScripts/generateMockData.js",
+    "prestart-mockapi": "npm run generate:schema",
+    "start-mockapi": "json-server --watch src/api/db.json --port 3001"
   },
   "repository": {
     "type": "git",
@@ -34,6 +37,7 @@
   "dependencies": {
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
@@ -87,6 +91,7 @@
     "webpack-dev-middleware": "^3.7.1",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-md5-hash": "0.0.6",
+    "webpack-merge": "^4.2.2",
     "webpack-node-externals": "^1.7.2"
   },
   "nodemonConfig": {

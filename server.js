@@ -22,7 +22,7 @@ app.use('*', (req, res, next) => {
   const filename = path.join(compiler.outputPath, './src/views/index.html');
   compiler.outputFileSystem.readFile(filename, (err, result) => {
     if (err) {
-      return next(err);
+      next(err);
     }
     res.set('content-type', 'text/html');
     res.send(result);

@@ -1,19 +1,14 @@
-const path = require('path');
 const webpack = require('webpack');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.config');
 
-module.exports = {
+module.exports = merge(common, {
   entry: {
     main: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/index.js']
   },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/',
-    filename: '[name].js'
-  },
   mode: 'development',
+  devtool: 'inline-source-map',
   target: 'web',
-  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -26,37 +21,11 @@ module.exports = {
           failOnError: false,
           failOnWarning: false
         }
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          }
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader']
       }
     ]
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/views/index.html',
-      filename: './src/views/index.html',
-      excludeChunks: ['server']
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ]
-};
+});
